@@ -2,20 +2,27 @@
  furl.js - full URL resolution API
 
  This is a simple Node.js process that presents a web server with a very
- simple API. Call it with /<url_to_resolve> and it will respond with an error
- or the destination URL.
+ simple API. Call it with /<url_to_resolve> and it will respond the
+ destination URL. If an error occurs it will respond with a message starting
+ with ERR.
 
  Call it with /stats to get a JSON response containing various stats.
 
- There is an in-memory cache managed whose size is managed by the global
- variables below.
+ Call it with /clean to trigger a cache cleaning operation. This will return
+ the number of objects deleted during the clean.
+
+ The an in-memory cache managed whose size is managed by the global variables
+ below.
+
+ It's highly recommended that this is run behind a mature web server such as
+ nginx - this is advice from the creator of Node so pay attention Bond!
 */
 
 var http = require('http'),
 		url = require('url');
 
 // Set this to true to get some logging
-var DEBUG = true;
+var DEBUG = false;
 
 // Port on which the API server should listen
 var PORT = 8888;
