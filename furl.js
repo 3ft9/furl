@@ -324,6 +324,11 @@ http.createServer(function (req, res)
 			res.writeHead(301, {'Content-Type': 'text/plain', 'Location': 'http://github.com/3ft9/furl'});
 			res.end('http://github.com/3ft9/furl');
 		}
+		else if (req.url == '/favicon.ico')
+		{
+			res.writeHead(200, {'Content-Type': 'image/x-icon'});
+			res.end();
+		}
 		else if (req.url == '/stats')
 		{
 			// Stats request, send them
