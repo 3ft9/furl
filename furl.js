@@ -19,10 +19,11 @@
 */
 
 var http = require('http'),
-		url = require('url');
+    url = require('url'),
+    fs = require('fs');
 
 // Set this to true to get some logging
-var DEBUG = false;
+var DEBUG = true;
 
 // Port on which the API server should listen
 var PORT = 8888;
@@ -56,6 +57,21 @@ var MAX_MEMORY_USAGE = 1024 * 1024 * 64; // A very conservative 64MB
 // Make a note of the initial memory usage so we can use it to determine the
 // usage by our cache
 var INITIAL_MEMORY_USAGE = process.memoryUsage().vsize;
+
+// This variable holds the HTML for the index page (/)
+var indexHTML = 'Loading...';
+// Load the index page
+fs.readFile('./index.html', function (err, doc) { indexHTML = (err ? err : doc.toString()); });
+// Watch the file for changes
+fs.watchFile('./index.html', function(curr,prev)
+{
+	if (curr.mtime.getTime() != prev.mtime.getTime())
+	{
+		// Reload the file
+		if (DEBUG) console.log('Reloading index.html...');
+		fs.readFile('./index.html', function (err, doc) { indexHTML = (err ? err : doc.toString()); });
+	}
+});
 
 // Stats
 var STATS = {
@@ -321,8 +337,8 @@ http.createServer(function (req, res)
 	{
 		if (req.url == '/')
 		{
-			res.writeHead(301, {'Content-Type': 'text/plain', 'Location': 'http://github.com/3ft9/furl'});
-			res.end('http://github.com/3ft9/furl');
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.end(indexHTML);
 		}
 		else if (req.url == '/favicon.ico')
 		{
