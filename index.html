@@ -71,7 +71,14 @@
 					})
 					.error(function(xhr, err)
 					{
-						$('#result').html('<span style="color:red;">' + xhr.responseText.substring(4) + '</span>');
+						if (xhr.responseText == q)
+						{
+							$('#result').html('<span style="color:red;">URL does not redirect</span>');
+						}
+						else
+						{
+							$('#result').html('<span style="color:red;">' + xhr.responseText.substring(4) + '</span>');
+						}
 					});
 				}
 				return false;
