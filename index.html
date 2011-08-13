@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<title>FURL</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<style>
+			@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+			body {
+				font-family: monospace;
+				font-size: 1.5em;
+			}
+			div#outer {
+				width: 600px;
+				margin: 0 auto;
+			}
+			div#outer h1 {
+				font-family: 'Gloria Hallelujah', cursive;
+				font-weight: bolder;
+				text-align: center;
+				border-bottom: 1px solid #ccc;
+				margin: 0;
+				padding: 0;
+			}
+			div#outer div#form {
+				text-align: center;
+				padding: 1.5em 0 0 0;
+			}
+			div#outer div#form form,
+			div#outer div#form input {
+				margin: 0;
+				padding: 0;
+			}
+			div#outer div#form input[type=text] {
+				width: 150px;
+			}
+			div#outer div#result {
+				border-bottom: 1px solid #ccc;
+				text-align: center;
+				padding: 1.5em 0;
+			}
+			div#outer div#info {
+				font-size: 0.8em;
+				line-height: 1.5em;
+				border-bottom: 1px solid #ccc;
+			}
+			div#outer div#info h2 {
+				text-align: center;
+				font-family: 'Gloria Hallelujah', cursive;
+			}
+			div#outer div#info p {
+				text-align: justify;
+			}
+			div#outer div#footer {
+				text-align: center;
+				font-family: 'Gloria Hallelujah', cursive;
+				font-size: 0.8em;
+			}
+			div#outer div#footer span {
+				padding: 30px;
+			}
+		</style>
+		<script type="text/javascript">
+			function doQuery()
+			{
+				var q = $('#query').val();
+				if (q.length > 0)
+				{
+					$('#result').html('Resolving...');
+					$.get('/' + q, function(data)
+					{
+						$('#result').html('<a href="' + data + '">' + data + '</a>');
+					})
+					.error(function(xhr, err)
+					{
+						$('#result').html('<span style="color:red;">' + xhr.responseText.substring(4) + '</span>');
+					});
+				}
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="outer">
+			<h1>FURL</h1>
+			<div id="form"><form onsubmit="return doQuery();">
+				<input type="text" id="query" placeholder="Short URL..." />
+				<input type="submit" value="Resolve URL" />
+			</form></div>
+			<div id="result"><em>Enter a short URL in the box above</em></div>
+			<div id="info">
+				<h2>What is FURL?</h2>
+				<p>
+					FURL is a simple service written in Node.js that provides an HTTP API for resolving short URLs.
+					You are using it right now!
+				</p>
+				<p>
+					FURL has been placed into the public domain, so do with it as you wish.
+					If you find it useful, please <a href="http://3ft9.com/contact">drop us a note</a> and tell us about it.
+				</p>
+				<p>
+					The source code is available on the <a href="https://github.com/3ft9/furl">3ft9 GitHub account</a>.
+				</p>
+			</div>
+			<div id="footer">
+				powered by <a href="https://github.com/3ft9/furl">furl</a>
+				<span>&nbsp;</span>
+				a <a href="http://3ft9.com/">3ft9</a> production
+			</div>
+		</div>
+		<script type="text/javascript">
+			$('#query').focus();
+		</script>
+	</body>
+</html>
