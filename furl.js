@@ -22,10 +22,10 @@ var http = require('http'),
 		url = require('url');
 
 // Set this to true to get some logging
-var DEBUG = false;
+var DEBUG = true;
 
 // Port on which the API server should listen
-var PORT = 8888;
+var PORT = 34737;
 
 // We stop when we hit this number of checked URLs per request
 var MAX_HOPS = 10;
