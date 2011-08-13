@@ -345,6 +345,11 @@ http.createServer(function (req, res)
 			res.writeHead(200, {'Content-Type': 'image/x-icon'});
 			res.end();
 		}
+		else if (req.url == '/robots.txt')
+		{
+			res.writeHead(200, {'Content-Type': 'text/plain'});
+			res.end('User-agent: *\nDisallow: /http://');
+		}
 		else if (req.url == '/stats')
 		{
 			// Stats request, send them
