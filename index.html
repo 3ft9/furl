@@ -64,7 +64,7 @@
 				var q = $('#query').val();
 				if (q.length > 0)
 				{
-					__adducer_record(document.location + q);
+					__adducer_stat(q);
 					$('#result').html('Resolving...');
 					$.get('/' + q, function(data)
 					{
