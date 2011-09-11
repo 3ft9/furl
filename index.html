@@ -64,13 +64,22 @@
 				var q = $('#query').val();
 				if (q.length > 0)
 				{
+					__adducer_record(document.location + q);
 					$('#result').html('Resolving...');
 					$.get('/' + q, function(data)
 					{
-						$('#result').html('<a href="' + data + '">' + data + '</a>');
+						if (data == q)
+						{
+							$('#result').html('<span style="color:red;">URL does not redirect</span>');
+						}
+						else
+						{
+							$('#result').html('<a href="' + data + '">' + data + '</a>');
+						}
 					})
 					.error(function(xhr, err)
 					{
+						alert(xhr.responseText + ' | ' + q);
 						if (xhr.responseText == q)
 						{
 							$('#result').html('<span style="color:red;">URL does not redirect</span>');
@@ -117,6 +126,6 @@
 		<script type="text/javascript">
 			$('#query').focus();
 		</script>
-		<script type="text/javascript" src="http://uk1.adducer.net/adcs.js"></script> 
+		<script type="text/javascript" src="http://uk1.adducer.net/adcs.js"></script>
 	</body>
 </html>
