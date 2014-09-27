@@ -23,7 +23,7 @@ var http = require('http'),
     fs = require('fs');
 
 // Set this to true to get some logging
-var DEBUG = true;
+var DEBUG = false;
 
 // Port on which the API server should listen
 var PORT = 34737;
